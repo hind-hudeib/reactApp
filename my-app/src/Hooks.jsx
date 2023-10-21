@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 
 function Hooks() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const errorRef = useRef(null); 
 
   useEffect(() => {
     async function fetchData() {
@@ -18,25 +18,32 @@ function Hooks() {
         setData(data);
         setLoading(false);
       } catch (error) {
-        setError(error);
+        errorRef.current = error; 
         setLoading(false);
       }
     }
-
     fetchData();
-  }, []); // The empty array means this effect runs once on component mount
+  }, []);
+
+  const loadingMessage = useMemo(() => (
+    <p className="text-center text-blue-500 font-bold text-lg">Loading...</p>
+  ), []);
+
+  const renderPosts = useCallback(() => {
+    return data.map((post) => (
+      <li key={post.id} className="text-gray-800 text-lg mb-2">{post.title}</li>
+    ));
+  }, [data]);
 
   return (
     <div className="max-w-md mx-auto p-4">
-      {loading ? (
-        <p className="text-center text-blue-500 font-bold text-lg">Loading...</p>
-      ) : error ? (
-        <p className="text-center text-red-500 font-bold text-lg">Error: {error.message}</p>
+      {loading ? loadingMessage : errorRef.current ? (
+        <p className="text-center text-red-500 font-bold text-lg">
+          Error: {errorRef.current.message}
+        </p>
       ) : (
         <ul className="list-disc list-inside">
-          {data.map((post) => (
-            <li key={post.id} className="text-gray-800 text-lg mb-2">{post.title}</li>
-          ))}
+          {renderPosts()}
         </ul>
       )}
     </div>
