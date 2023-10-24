@@ -5,6 +5,9 @@ import Child from "./Child";
 import NumbersList from "./NumbersList";
 import Form from "./Form";
 import Hooks from "./Hooks";
+import UserForm from "./UserForm";
+import Login from "./Login";
+import FakeApi from "./FakeApi";
 
 function App() {
   const message ="Hi everyone !";
@@ -15,7 +18,11 @@ function App() {
       {/* <Child greeting={message}/> */}
       {/* <NumbersList/> */}
       {/* <Form/> */}
-      <Hooks/>
+      {/* <Hooks/> */}
+      {/* <UserForm/> */}
+      {/* <Login/> */}
+      <FakeApi/>
+
     </div>
   );
 }
