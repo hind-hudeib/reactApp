@@ -1,29 +1,17 @@
 import "./App.css";
 import React from "react";
-import Class from "./Class";
-import Child from "./Child";
-import NumbersList from "./NumbersList";
 import Form from "./Form";
-import Hooks from "./Hooks";
-import UserForm from "./UserForm";
-import Login from "./Login";
-import FakeApi from "./FakeApi";
+import UserContext from "./context/UserContext";
+import User from "./User";
 
 function App() {
-  const message ="Hi everyone !";
+  const message = "Hi everyone !";
 
   return (
-    <div className="App">
-      {/* <Class /> */}
-      {/* <Child greeting={message}/> */}
-      {/* <NumbersList/> */}
-      {/* <Form/> */}
-      {/* <Hooks/> */}
-      {/* <UserForm/> */}
-      {/* <Login/> */}
-      <FakeApi/>
-
-    </div>
+    <UserContext.Provider value={{ message }}>
+      <User />
+      <Form />
+    </UserContext.Provider>
   );
 }
 

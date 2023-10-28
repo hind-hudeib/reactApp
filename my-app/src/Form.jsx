@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
+import UserContext from "./context/UserContext";
 const Form = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const { message } = useContext(UserContext);
 
  
   function saveUser(name, password) {
@@ -11,7 +14,15 @@ const Form = () => {
   }
   
   return (
+    <>
+    <hr/>
+    <div className="text-center flex-row justify-center mx-80">
+      <h1 className="font-thin text-4xl py-10 m-10 text-red-400 border-2 border-purple-500 rounded-xl block">
+        {message}
+      </h1>
+    </div>
     <div className="mt-24 p-10 text-center justify-center flex">
+
       <form className="w-full p-10 max-w-sm border-4 rounded-xl border-purple-200">
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/3">
@@ -73,6 +84,7 @@ const Form = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
